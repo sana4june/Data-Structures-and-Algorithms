@@ -1,0 +1,15 @@
+//https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+
+public class Solution {
+    public IList<int> FindDisappearedNumbers(int[] nums) {
+        List<int> missingNumbers = new List<int>();
+        
+        for(int i = 1;i<= nums.Length;i++)
+        {
+            if(!nums.Contains(i))
+                missingNumbers.Add(i);
+        }
+        return missingNumbers;
+        
+    }
+}
