@@ -1,6 +1,5 @@
 // https://leetcode.com/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/
 
-
 public class Solution {
     public ListNode DeleteNodes(ListNode head, int m, int n) {
         ListNode temp = head;
