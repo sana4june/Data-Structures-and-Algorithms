@@ -1,1 +1,51 @@
+// https://leetcode.com/problems/degree-of-an-array/
 
+public class Solution {
+    public int FindShortestSubArray(int[] nums) {
+        int maxFreq = 0;
+        bool maxChanged = false;
+        Dictionary<int,int> dictMax = new Dictionary<int,int>();
+        Dictionary<int,int> dict = new Dictionary<int,int>();
+        int smallestLength = 50000;
+        Dictionary<int,List<int>> dictIndex = new Dictionary<int,List<int>>();
+        for(int i = 0;i<nums.Length;i++)
+        {
+            if(dict.ContainsKey(nums[i]))
+            {
+                dict[nums[i]] = dict[nums[i]] + 1;
+                dictIndex[nums[i]].Add(i);
+            }
+            else
+            {
+                dict[nums[i]] = 1;
+                dictIndex[nums[i]] = new List<int>(){i};
+                
+            }
+            if(dict[nums[i]] > maxFreq)
+            {
+               maxFreq = dict[nums[i]];
+               maxChanged = true;
+            }
+            else if(dict[nums[i]] == maxFreq)
+            {
+                dictMax[i] = nums[i];
+            }
+            if(maxChanged)
+            {
+                dictMax.Clear();
+                dictMax[i] = nums[i];
+                maxChanged = false;
+            }
+            
+        }
+        foreach(int value in dictMax.Values)
+        {
+            int length  = dictIndex[value].Last() - dictIndex[value].First() +1;
+            if(length < smallestLength)
+            {
+                smallestLength = length;
+            }
+        }
+        return smallestLength;
+    }
+}
