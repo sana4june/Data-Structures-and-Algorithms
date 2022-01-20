@@ -1,0 +1,16 @@
+// https://leetcode.com/problems/two-sum/
+
+public class Solution {
+    public int[] TwoSum(int[] nums, int target) {
+        Dictionary<int,int> dict = new Dictionary<int,int>();
+        for(int i = 0; i< nums.Length;i++)
+        {
+            dict[i] = nums[i];
+            if(dict.ContainsValue(target - nums[i]) &&  (dict.FirstOrDefault(x => x.Value == (target - nums[i])).Key != i))
+            {
+                return new int[]{i, dict.FirstOrDefault(x => x.Value == (target - nums[i])).Key};
+            }
+        }
+        return null;
+    }
+}
