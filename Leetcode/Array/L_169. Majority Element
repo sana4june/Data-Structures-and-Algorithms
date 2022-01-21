@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/majority-element/
+
+public class Solution {
+    public int MajorityElement(int[] nums) {
+        Array.Sort(nums);
+        int f = 1;
+        int element  = nums[0];
+        for(int i = 1;i< nums.Length;i++)
+        {
+            if(nums[i]!= element)
+            {
+                if(f > nums.Length/2)
+                {
+                   return element;
+                }
+                else
+                {
+                    element = nums[i];
+                    f = 1;
+                }
+            }
+            else
+            {
+                f++;
+            }
+        }
+        return element;
+    }
+}
