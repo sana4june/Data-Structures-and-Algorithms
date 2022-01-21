@@ -1,0 +1,26 @@
+// https://leetcode.com/problems/pascals-triangle/
+
+public class Solution {
+    public IList<IList<int>> Generate(int numRows) {
+        IList<IList<int>> returnList = new List<IList<int>>();
+        List<int> backUpList = new List<int>();
+        for(int i =0;i < numRows ;i++)
+        {
+            List<int> innerList = new List<int>();
+            innerList.Add(1);
+            int sum  = 0;
+            for(int j = 2; j <= i;j++)
+            {
+                sum = backUpList[j-2] + backUpList[j-1];
+                innerList.Add(sum);
+            }
+            if(i>0)
+            {
+                innerList.Add(1);
+            }
+            backUpList = innerList;
+            returnList.Add(innerList);
+        }
+        return returnList;
+    }
+}
