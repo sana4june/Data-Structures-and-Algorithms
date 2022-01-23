@@ -1,0 +1,73 @@
+// https://leetcode.com/problems/add-two-numbers-ii/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
+        int sizel1 = 0, sizel2 = 0;
+        ListNode currl1 = l1, currl2 = l2;
+        ListNode head = null;
+        while(currl1 != null)
+        {
+            currl1 = currl1.next;
+            sizel1++;
+        }
+        while(currl2 != null)
+        {
+            currl2 = currl2.next;
+            sizel2++;
+        }
+        currl1 = l1;
+        currl2 = l2;
+        while(sizel1 > 0 && sizel2 > 0)
+        {
+            int localSum = 0;
+            if(sizel1 >= sizel2)
+            {
+                localSum = currl1.val + localSum;
+                sizel1--;
+                currl1 = currl1.next;
+            }
+            if(sizel2> sizel1)
+            {
+                localSum = currl2.val + localSum;
+                sizel2--;
+                currl2= currl2.next;
+            }
+            ListNode localSumNode = new ListNode(localSum);
+            localSumNode.next = head;
+            head = localSumNode;
+        }
+        currl1 = head;
+        head = null;
+        int carry = 0;
+        while(currl1 != null)
+        {
+            int val = (currl1.val +carry) % 10;
+            carry = (currl1.val +carry) / 10;
+            
+            ListNode localSum = new ListNode(val);
+            localSum.next = head;
+            head = localSum;
+            
+            currl1 = currl1.next;
+        }
+        if(carry > 0)
+        {
+            ListNode localCarry = new ListNode(carry);
+            localCarry.next = head;
+            head = localCarry;
+        }
+        
+        return head;
+    }
+}
