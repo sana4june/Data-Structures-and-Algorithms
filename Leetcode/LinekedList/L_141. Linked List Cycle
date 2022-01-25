@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/linked-list-cycle
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool HasCycle(ListNode head) {
+        Dictionary<ListNode, int> visited = new Dictionary<ListNode, int>();
+        ListNode temp = head;
+        while(temp != null)
+        {
+            if(visited.ContainsKey(temp))
+            {
+                return true;
+            }
+            else
+            {
+                visited[temp] = 1;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }         
+}
