@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/add-two-polynomials-represented-as-linked-lists/
+
+/**
+ * Definition for polynomial singly-linked list.
+ * public class PolyNode {
+ *     public int coefficient, power;
+ *     public PolyNode next;
+ *
+ *     public PolyNode(int x=0, int y=0, PolyNode next=null) {
+ *         this.coefficient = x;
+ *         this.power = y;
+ *         this.next = next;
+ *     }
+ * }
+ */
+
+public class Solution {
+    public PolyNode AddPoly(PolyNode poly1, PolyNode poly2) {
+        PolyNode list1 = poly1;
+        PolyNode list2 = poly2;
+        PolyNode returnHead = new PolyNode();
+        PolyNode returnList = returnHead;
+        while(list1 != null && list2 != null)
+        {
+            PolyNode temp = new PolyNode();
+            if(list1.power == list2.power)
+            {
+                temp.coefficient = list1.coefficient + list2.coefficient;
+                temp.power = list1.power;
+               
+                list1 = list1.next;
+                list2 = list2.next;
+            }
+            else if (list1.power > list2.power)
+            {
+                temp.coefficient = list1.coefficient;
+                temp.power = list1.power;
+               
+                list1 = list1.next;
+            }
+            else
+            {
+                temp.coefficient = list2.coefficient;
+                temp.power = list2.power;
+               
+                list2 = list2.next;
+            }
+            if(temp.coefficient != 0)
+            {
+                returnList.next = temp;
+                returnList = returnList.next;
+            }
+        }
+        if(list1 != null) 
+            returnList.next = list1;
+        
+        if(list2 != null) 
+            returnList.next = list2;
+        return returnHead.next;
+    }
+}
