@@ -2,50 +2,26 @@
 
 public class Solution {
     public int FindShortestSubArray(int[] nums) {
-        int maxFreq = 0;
-        bool maxChanged = false;
-        Dictionary<int,int> dictMax = new Dictionary<int,int>();
-        Dictionary<int,int> dict = new Dictionary<int,int>();
-        int smallestLength = 50000;
-        Dictionary<int,List<int>> dictIndex = new Dictionary<int,List<int>>();
+        Dictionary<int, int> leftIndex = new Dictionary<int,int>();
+        Dictionary<int, int> rightIndex = new Dictionary<int,int>();
+        Dictionary<int, int> degree = new Dictionary<int,int>();
+        int minLength = 50000;
+        for(int i =0;i<nums.Length;i++)
+        {
+            if(!leftIndex.ContainsKey(nums[i]))
+                leftIndex[nums[i]] = i;
+            rightIndex[nums[i]] = i;
+            if(degree.ContainsKey(nums[i]))
+                degree[nums[i]] = degree[nums[i]] +1;
+            else
+                degree[nums[i]] = 1;
+        }
+        int maxCount = degree.Values.Max();
         for(int i = 0;i<nums.Length;i++)
         {
-            if(dict.ContainsKey(nums[i]))
-            {
-                dict[nums[i]] = dict[nums[i]] + 1;
-                dictIndex[nums[i]].Add(i);
-            }
-            else
-            {
-                dict[nums[i]] = 1;
-                dictIndex[nums[i]] = new List<int>(){i};
-                
-            }
-            if(dict[nums[i]] > maxFreq)
-            {
-               maxFreq = dict[nums[i]];
-               maxChanged = true;
-            }
-            else if(dict[nums[i]] == maxFreq)
-            {
-                dictMax[i] = nums[i];
-            }
-            if(maxChanged)
-            {
-                dictMax.Clear();
-                dictMax[i] = nums[i];
-                maxChanged = false;
-            }
-            
+            if(degree[nums[i]] == maxCount)
+                minLength = Math.Min(rightIndex[nums[i]] - leftIndex[nums[i]] + 1, minLength);
         }
-        foreach(int value in dictMax.Values)
-        {
-            int length  = dictIndex[value].Last() - dictIndex[value].First() +1;
-            if(length < smallestLength)
-            {
-                smallestLength = length;
-            }
-        }
-        return smallestLength;
+        return minLength;
     }
 }
