@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/missing-ranges/
+
+public class Solution {
+    public IList<string> FindMissingRanges(int[] nums, int lower, int upper) {
+        List<string> returnList = new List<String>();
+        int prev = lower - 1;
+        for(int i = 0;i <= nums.Length;i++)
+        {
+            int curr = (i < nums.Length) ? nums[i]: upper+1;
+            if(prev + 1 <= curr -1)
+            {
+                returnList.Add(formatedResult(prev +1, curr - 1));
+            }
+            prev = curr;
+        }
+        return returnList;
+    }
+    
+    public string formatedResult(int lower, int upper)
+    {
+        if(lower == upper)
+            return lower.ToString();
+        else
+            return lower.ToString() + "->" + upper.ToString();
+    }
+}
+
