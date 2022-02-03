@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/summary-ranges/
+
+public class Solution {
+    public IList<string> SummaryRanges(int[] nums) {
+        if(nums.Length == 0)
+            return new List<string>();
+        if(nums.Length == 1)
+            return new List<string>(){nums[0].ToString()};
+        int lower = nums[0];
+        int upper = nums[0];
+        List<String> final = new List<string>();
+        for(int i = 1;i<nums.Length;i++)
+        {
+            if(Math.Abs(nums[i] - upper) > 1)
+            {
+                final.Add(formatRange(lower, upper));
+                lower = nums[i];
+                upper = nums[i];
+            }
+            else
+            {
+                upper = nums[i];
+            }
+        }
+        final.Add(formatRange(lower, upper));
+        return final;
+    }
+    
+    public string formatRange(int lower, int upper)
+    {
+        if(lower == upper)
+            return lower.ToString();
+        else
+            return lower.ToString() + "->" + upper.ToString();
+    }
+    
+}
