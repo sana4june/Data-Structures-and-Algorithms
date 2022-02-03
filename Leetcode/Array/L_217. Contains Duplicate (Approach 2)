@@ -1,0 +1,13 @@
+// https://leetcode.com/problems/contains-duplicate/ (Approach 2)
+
+public class Solution {
+    public bool ContainsDuplicate(int[] nums) {
+        Dictionary<int,int> dup = new Dictionary<int,int>();
+        foreach(int i in nums)
+            if(dup.ContainsKey(i))
+                return true;
+            else
+                dup[i] = 1;
+        return false;
+    }
+}
