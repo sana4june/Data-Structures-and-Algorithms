@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/contains-duplicate-ii/
+
+public class Solution {
+    public bool ContainsNearbyDuplicate(int[] nums, int k) {
+        Dictionary<int,int> dup = new Dictionary<int,int>();
+        for(int i = 0;i<nums.Length;++i)
+        {
+            if(dup.ContainsKey(nums[i]))
+                return true;
+            dup[nums[i]] = 1;
+            if(dup.Count() > k)
+            {
+                dup.Remove(nums[i-k]);
+            }
+        }
+        return false;
+    }
+}
