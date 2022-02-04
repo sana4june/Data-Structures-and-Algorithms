@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/range-sum-query-immutable/
+
+public class NumArray {
+
+    int[] Nums;
+    public NumArray(int[] nums) {
+        Nums = new int[nums.Length+1];
+        for(int i = 0;i < nums.Length;i++)
+        {
+            Nums[i+1] = Nums[i] + nums[i];
+        }
+    }
+    
+    public int SumRange(int left, int right) {
+        return Nums[right+1] - Nums[left];
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * int param_1 = obj.SumRange(left,right);
+ */
