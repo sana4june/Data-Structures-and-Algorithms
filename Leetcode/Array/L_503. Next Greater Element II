@@ -1,0 +1,34 @@
+// https://leetcode.com/problems/next-greater-element-ii/
+
+public class Solution {
+    public int[] NextGreaterElements(int[] nums) {
+        int[] returnArray = new int[nums.Length];
+        for(int i =0;i<nums.Length;i++)
+        {
+            returnArray[i] = -1;
+            bool found = false;
+            for(int j = i+1;j<nums.Length;j++)
+            {
+                if(nums[j] > nums[i])
+                {
+                    returnArray[i] = nums[j];
+                    found = true;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                for(int j = 0;j<i;j++)
+                {
+                    if(nums[j] > nums[i])
+                    {
+                        returnArray[i] = nums[j];
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return returnArray;
+    }
+}
