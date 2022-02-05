@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/reduce-array-size-to-the-half/
+
+public class Solution {
+    public int MinSetSize(int[] arr) {
+        Dictionary<int,int> dict = new Dictionary<int,int>();
+        for(int i = 0;i< arr.Length;i++)
+        {
+            if(dict.ContainsKey(arr[i]))
+            {
+                dict[arr[i]] = dict[arr[i]] + 1;
+            }
+            else
+            {
+                dict[arr[i]] = 1;
+            }
+        }
+        int sum = 0;
+        int[] keys = dict.Values.ToArray();
+        Array.Sort(keys);
+        Array.Reverse(keys);
+        int count = 0;
+        foreach(int i in keys)
+        {
+            sum = sum + 1;
+            count = count + i;
+            if(count >= arr.Length/2)
+            {
+                return sum;
+            }
+        }
+        return sum;
+    }
+}
