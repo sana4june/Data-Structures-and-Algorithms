@@ -1,24 +1,21 @@
 //https://leetcode.com/problems/third-maximum-number/
 
-using System.Diagnostics;
 public class Solution {
     public int ThirdMax(int[] nums) {
-        
-        Dictionary<int,int> finalList =  new Dictionary<int,int>();
-        for(int i=0;i< nums.Count();i++)
+        Dictionary<int,int> maximums = new Dictionary<int,int>();
+        foreach(int i in nums)
         {
-            if(!finalList.ContainsKey(nums[i]))
+            maximums[i] = 1;
+            if(maximums.Count() > 3)
             {
-               finalList[nums[i]] = 1;                
-            }
-            if(finalList.Count() > 3)
-            {
-                finalList.Remove(finalList.Keys.Min());
+                maximums.Remove(maximums.Keys.ToArray().Min());
             }
         }
-        if(finalList.Count() == 3)
-            return finalList.Keys.Min();
-        return finalList.Keys.Max();
-        
+        if(maximums.Count() == 3)
+        {
+            return maximums.Keys.ToArray().Min();
+        }
+        return maximums.Keys.ToArray().Max();
     }
 }
+
