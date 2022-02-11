@@ -1,0 +1,15 @@
+// https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
+
+public class Solution {
+    public int MostWordsFound(string[] sentences) {
+        int l =0;
+        foreach(string s in sentences)
+        {
+            int local = 0;
+            local = s.Split(" ").Count();
+            l = Math.Max(local, l);
+        }
+        return l;
+    }
+}
+
