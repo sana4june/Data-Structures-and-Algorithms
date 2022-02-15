@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/find-all-the-lonely-nodes/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public IList<int> lonely = new List<int>();
+    public IList<int> GetLonelyNodes(TreeNode root) {
+        if(root == null)
+            return null;
+        IList<int> l = GetLonelyNodes(root.left);
+        IList<int> r = GetLonelyNodes(root.right);
+        if(root.left == null && root.right != null)
+            lonely.Add(root.right.val);
+        if(root.right == null && root.left != null)
+            lonely.Add(root.left.val);
+        return lonely;
+    }
+}
