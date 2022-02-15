@@ -15,14 +15,17 @@
  * }
  */
 public class Solution {
-    public int RangeSumBST(TreeNode root, int L, int R) {
-        if (root == null) return 0;
-	var sum = 0;
-	if (L <= root.val && root.val <= R) {
-		sum = root.val;
-	}
-	var left = RangeSumBST(root.left, L, R);
-	var right = RangeSumBST(root.right, L, R);
-	return sum + left + right;
+    int sum =0;
+    public int RangeSumBST(TreeNode root, int low, int high) {
+        if(root == null)
+            return 0;
+        int s = RangeSumBST(root.left, low,high);
+        int s1 = RangeSumBST(root.right, low,high);
+        if(root.val >= low && root.val <= high)
+        {
+            sum += root.val;
+        }
+        return sum;
     }
+    
 }
