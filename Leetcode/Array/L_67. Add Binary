@@ -1,0 +1,98 @@
+// https://leetcode.com/problems/add-binary/
+
+public class Solution {
+    public string AddBinary(string a, string b) {
+        char[] charA = a.Reverse().ToArray();
+        char[] charB = b.Reverse().ToArray();
+        string s = string.Empty;
+        int n = a.Length > b.Length ? a.Length : b.Length;
+        int carryOver = 0;
+        for(int i = 0; i<n; i++)
+        {
+            if(i < b.Length && i < a.Length)
+            {
+                switch(charA[i].ToString() + charB[i].ToString())
+                {
+                    case "00":
+                        if(carryOver == 1)
+                            s = s + "1";
+                        else
+                            s = s + "0";
+                        carryOver = 0;
+                        break;
+                        
+                    case "01":
+                    case "10":
+                        if(carryOver == 1)
+                        {
+                            s = s + "0";
+                            carryOver = 1;
+                        }
+                        else
+                        {
+                            s = s + "1";
+                            carryOver = 0;
+                        }
+                        break;
+                        
+                    case "11":
+                        if(carryOver == 1)
+                        {
+                            s = s + "1";
+                            carryOver = 1;
+                        }
+                        else
+                        {
+                            s = s + "0";
+                            carryOver = 1;
+                        }
+                        break;
+                }
+            }
+            else if(i < a.Length)
+            {
+                if(carryOver == 1)
+                {
+                    if(charA[i] == '0')
+                    {
+                        s = s + "1";
+                        carryOver = 0;
+                    }
+                    else
+                    {
+                        s = s+ "0";
+                        carryOver = 1;
+                    }
+                }
+                else
+                {
+                    s = s + charA[i].ToString();
+                }
+            }
+            else 
+            {
+                if(carryOver == 1)
+                {
+                    if(charB[i] == '0')
+                    {
+                        s = s + "1";
+                        carryOver = 0;
+                    }
+                    else
+                    {
+                        s = s+ "0";
+                        carryOver = 1;
+                    }
+                }
+                else
+                {
+                    s = s + charB[i].ToString();
+                }
+            }
+        }
+         if (carryOver == 1)
+                s = s + 1;
+        s = new String( s.ToCharArray().Reverse().ToArray());
+        return s;
+    }
+}
