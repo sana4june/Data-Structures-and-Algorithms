@@ -1,0 +1,12 @@
+ static bool IsIdentical(TreeNode root, TreeNode root1)
+        {
+            if (root == null && root1 == null)
+                return true;
+
+            if(root != null && root1 != null)
+            {
+                return (root.val == root1.val && IsIdentical(root.left, root1.left) && IsIdentical(root.right, root1.right));
+            }
+
+            return false;
+        }
