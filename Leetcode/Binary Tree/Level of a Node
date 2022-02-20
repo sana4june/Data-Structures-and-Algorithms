@@ -1,0 +1,31 @@
+public static int levelOfANode(TreeNode root,int val)
+        {
+            int level = 0;
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            TreeNode dummy = new TreeNode(-1);
+
+            if(root != null)
+            {
+                q.Enqueue(root);
+                q.Enqueue(dummy);
+            }
+            while(q.Count() > 0)
+            {
+                TreeNode temp = q.Dequeue();
+                if(temp == dummy)
+                {
+                    level++;
+                    q.Enqueue(dummy);
+                }
+                else
+                {
+                    if (temp.val == val)
+                        return level;
+                    if (temp.left != null)
+                        q.Enqueue(temp.left);
+                    if (temp.right != null)
+                        q.Enqueue(temp.right);
+                }
+            }
+            return level;
+        }
