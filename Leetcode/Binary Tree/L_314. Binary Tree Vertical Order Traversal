@@ -1,0 +1,74 @@
+// https://leetcode.com/problems/binary-tree-vertical-order-traversal/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    
+ 
+    public IList<IList<int>> VerticalOrder(TreeNode root) {
+        IList<IList<int>> list = new List<IList<int>>();
+        if(root == null)
+        {
+            return list;
+        }
+        
+        SortedDictionary<int, ArrayList> dict = new SortedDictionary<int, ArrayList>();
+        int hd = 0;
+        Queue<Qobj> q = new Queue<Qobj>();
+        q.Enqueue(new Qobj(root,hd));
+        while(q.Count > 0)
+        {
+            Qobj temp = q.Dequeue();
+            TreeNode node = temp.node;
+            hd = temp.hd;
+            
+            if(dict.ContainsKey(hd))
+            {
+                dict[hd].Add(node.val);
+            }
+            else
+            {
+                ArrayList al = new ArrayList();
+                al.Add(node.val);
+                dict[hd] = al;
+            }
+            if(node.left != null)
+                q.Enqueue(new Qobj(node.left, hd-1));
+            if(node.right != null)
+                q.Enqueue(new Qobj(node.right, hd+1));
+        }
+        foreach(KeyValuePair<int,ArrayList> e in dict)
+        {
+            ArrayList al = (ArrayList)e.Value;
+            List<int> l = new List<int>();
+            foreach(int i in al)
+            {
+                l.Add(i);
+            }
+            list.Add(l);
+        }
+        return list;
+    }
+}
+
+public class Qobj
+{  
+    public int hd;
+    public TreeNode node;
+    public Qobj(TreeNode node,int hd)
+    {
+        this.hd = hd;
+        this.node = node;
+    }
+}
