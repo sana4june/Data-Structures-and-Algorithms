@@ -1,0 +1,34 @@
+//https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    IList<int> rL = new List<int>();
+    
+    public IList<int> PostorderTraversal(TreeNode root) {        
+        PT(root);
+        return rL;        
+    }
+    
+    public void PT(TreeNode r)
+    {
+        if(r == null)
+            return;
+        if(r.left != null)
+            PT(r.left);
+        if(r.right != null)
+            PT(r.right);
+        rL.Add(r.val);
+    }    
+}
