@@ -1,0 +1,45 @@
+//https://leetcode.com/problems/average-of-levels-in-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public IList<double> AverageOfLevels(TreeNode root) {
+        IList<double> rl = new List<double>(); 
+        if(root == null)
+            return rl;
+    
+        Queue<TreeNode> q = new Queue<TreeNode>();
+        q.Enqueue(root);
+        
+        while(q.Count() > 0)
+        {
+            
+            int size = q.Count();
+            double sum = 0;
+            for(int i =0; i<size; i++)
+            {
+                TreeNode temp = q.Dequeue();
+                sum = sum + temp.val;
+                if(temp.left != null)
+                    q.Enqueue(temp.left);
+                if(temp.right != null)
+                    q.Enqueue(temp.right);
+            }
+            rl.Add(sum/size);
+            sum = 0;
+        }
+        return rl;
+    
+    }
+}
