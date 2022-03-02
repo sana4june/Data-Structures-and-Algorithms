@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/distribute-coins-in-binary-tree/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    int moves = 0;
+    public int DistributeCoins(TreeNode root) {
+        if(root == null)
+            return moves;
+        Moves(root);
+       return moves;
+    }
+    
+    public int Moves(TreeNode root)
+    {
+        if(root == null)
+            return 0 ;
+        
+        int L = Moves(root.left);
+        int R = Moves(root.right);
+        moves += Math.Abs(L) + Math.Abs(R);
+        return root.val + L + R - 1;
+    }
+}
